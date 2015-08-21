@@ -1,0 +1,10 @@
+function c { git checkout $@; }
+function b { git branch $@; }
+alias s="git status"
+alias diff="git diff"
+alias dc="git diff --cached"
+alias dv="git diff | vim -"
+alias l="git log"
+alias gp="git pull"
+alias gpu="git push"
+alias stash='git stash'

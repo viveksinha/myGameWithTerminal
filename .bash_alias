@@ -1,0 +1,85 @@
+#   lr:  Full Recursive Directory Listing
+#   ------------------------------------------
+alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
+
+# weather from my current location
+alias weather="curl -s 'http://rss.accuweather.com/rss/liveweather_rss.asp?metric=1&locCode=en|in|bangalore|204108' | sed -n '/Currently:/ s/.*: \(.*\): \([0-9]*\)\([CF]\).*/\2°\3, \1/p"
+
+#utility
+
+#the "app" to install an app on linux
+alias install='brew install $1'
+alias save='echo $1 > $2.txt'
+alias fuckcoding='shutdown -P now'
+alias fuck=' echo 'krishna05' | -kS $(history -p \!\!)'
+alias ll='ls -lhA'
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+alias cs='cd $1;ls'
+alias h='history'
+alias remove='brew remove'
+alias update='brew update'
+alias upgrade='brew update && brew upgrade'
+alias reload_bash='. ~/.bashrc'
+alias open='gedit $1 &'
+alias ..='cd ..'
+alias ports='netstat -tulanp'
+alias check='ping google.com'
+alias dwnld_audio='cd $HOME/Movies/youtube; youtube-dl -citkf 140 $1'
+alias dwnld_video='cd $HOME/Movies/youtube; youtube-dl -citk --prefer-ffmpeg $1'
+alias mkdir="mkdir -pv"
+alias wget='wget -c'
+alias jobs="ps aux"
+alias bashrc='echo 'krishna05' | gedit ~/.bashrc'
+alias ping='ping www.google.com'
+alias port='netstat -tulpn | grep :$1'
+alias kill='kill -9 $1'
+alias killport='tcpkill -9 port $1'
+#
+alias sudo="-E"
+alias tree='tree -C'
+alias hibernate="systemctl hibernate"
+alias suspend="systemctl suspend"
+alias lsdirs="ls -l | grep '^d'"
+
+# Slow vim startup fix with many plugins
+alias vim="vim -X"
+
+# Show where you copy
+alias cp="cp -v"
+
+# webcam in mplayer, press G to take a shot.
+alias webcam="mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot"
+
+#calculator
+alias cal='bc -l'
+
+#This one will list our disk usage in human-readable units including filesystem #type, and print a total at the bottom:
+alias df="df -Tha --total"
+
+#goto work
+alias ws_intl='cd $HOME/work/intl'
+alias ws_india='cd $HOME/work/india'
+alias eclipse='cd $HOME/eclipse/ ; ./eclipse &'
+
+alias init_intl='ws_intl; ant init.env -Denv=viveksinha'
+alias init_india='ws_india; ant init.env -Denv=viveksinha'
+
+
+#ant - build sandbox
+alias jsp_sync='ant dev.publish.static' 
+alias sync_intl='ws_intl; jsp_sync' 
+alias sync_india='ws_india; jsp_sync' 
+
+#databases
+alias pgsql='echo 'postgres' | pgsql'
+alias mysql='mysql.server start; mysql -uroot -p'
+
+#live databases
+alias ovpn='openvpn --config .client.ovpn &'
+
+#most used commands
+#history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/#count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  #head -n10
+
+#guake -n guake -e 'mongo_restart' guake -r 'mongo' #to execute command mongo_restart in guake with tab named mongo
