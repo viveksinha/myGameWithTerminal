@@ -22,5 +22,4 @@ To update later on, just run that command again
 
 Your Contribution will be appreciated!
 
-signing off
-- wiki
+Happy Coding!
