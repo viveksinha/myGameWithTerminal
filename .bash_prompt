@@ -115,6 +115,6 @@ PS2="\[${yellow}\]→ \[${reset}\]";
 export PS2;
 
 clear
-echo -e "${LIGHTGRAY}";figlet " Yo!  This  is  Jarvis";
-echo -e "${LIGHTRED}" "Hello, Mr. $USER";
-echo -e "${LIGHTRED}" "Today is: \t${LIGHTGRAY}" `date`;
+echo -e "${blue}${bold}";figlet " Yo!  This  is  Jarvis";
+echo -e "${green}" "Hello, Mr. $USER";
+echo -e "${red}" "Today is: ${LIGHTGRAY}" `date`;

@@ -31,3 +31,5 @@ export GREP_OPTIONS='--color=auto'
 
 # complete sudo and man-pages
 complete -cf sudo man
+
+#[ -n "$PS1" ] && source ~/.bash_profile;

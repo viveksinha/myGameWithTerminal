@@ -59,10 +59,6 @@ fi
 if [ -f ~/.bash_git ]; then
     . ~/.bash_git
 fi
-# Reload git alias file
-if [ -f ~/.bash_profile ]; then
-    . ~/.bash_profile
-fi
 #Reload git credentials
 if [ -f ~/.git_credentials ]; then
 	. ~/.git_credentials
@@ -72,8 +68,6 @@ if [ -f ~/.bash_credentials ]; then
 	. ~/.bash_credentials
 fi
 #Reload bash prompt
-if [ -f ~/.bash_prompt]; then
+if [ -f ~/.bash_prompt ]; then
 	. ~/.bash_prompt
 fi
-
-[ -n "$PS1" ] && source ~/.bash_profile;

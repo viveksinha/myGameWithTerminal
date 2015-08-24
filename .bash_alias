@@ -32,12 +32,11 @@ alias mkdir="mkdir -pv"
 alias wget='wget -c'
 alias jobs="ps aux"
 alias bashrc='echo 'krishna05' | gedit ~/.bashrc'
-alias ping='ping www.google.com'
 alias port='netstat -tulpn | grep :$1'
 alias kill='kill -9 $1'
 alias killport='tcpkill -9 port $1'
 #
-alias sudo="-E"
+alias sudo="sudo -E"
 alias tree='tree -C'
 alias hibernate="systemctl hibernate"
 alias suspend="systemctl suspend"
@@ -73,11 +72,16 @@ alias sync_intl='ws_intl; jsp_sync'
 alias sync_india='ws_india; jsp_sync' 
 
 #databases
-alias pgsql='echo 'postgres' | pgsql'
-alias mysql='mysql.server start; mysql -uroot -p'
+alias pgsql='psql -U postgres b2c'
+alias msql='mysql.server start; mysql -uroot -p'
 
 #live databases
 alias ovpn='openvpn --config .client.ovpn &'
+
+# mac
+alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+
 
 #most used commands
 #history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/#count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  #head -n10
