@@ -11,30 +11,35 @@ alias weather="curl -s 'http://rss.accuweather.com/rss/liveweather_rss.asp?metri
 alias install='brew install $1'
 alias save='echo $1 > $2.txt'
 alias fuckcoding='shutdown -P now'
-alias fuck=' echo 'krishna05' | -kS $(history -p \!\!)'
+alias fuck=' $(history -p \!\!)'
 alias ll='ls -lhA'
 alias rm='rm -i'
 alias mv='mv -i'
 alias cp='cp -i'
 alias cs='cd $1;ls'
 alias h='history'
+alias tail='tail -f'
 alias remove='brew remove'
 alias update='brew update'
 alias upgrade='brew update && brew upgrade'
-alias reload_bash='. ~/.bashrc'
+alias reload_bash='. ~/.bash*'
 alias open='gedit $1 &'
 alias ..='cd ..'
-alias ports='netstat -tulanp'
+alias port='lsof -i :$1'
 alias check='ping google.com'
-alias dwnld_audio='cd $HOME/Movies/youtube; youtube-dl -citkf 140 $1'
+alias dwnld_mp3='cd $HOME/Music/Audio; youtube-dl --extract-audio --audio-format mp3 $1'
+alias dwnld_audio='cd $HOME/Music/Audio; youtube-dl -citkf 140 $1'
 alias dwnld_video='cd $HOME/Movies/youtube; youtube-dl -citk --prefer-ffmpeg $1'
 alias mkdir="mkdir -pv"
 alias wget='wget -c'
 alias jobs="ps aux"
+alias job="ps aux | grep $1"
 alias bashrc='echo 'krishna05' | gedit ~/.bashrc'
-alias port='netstat -tulpn | grep :$1'
+# alias port='netstat -tulpn | grep :$1'
 alias kill='kill -9 $1'
-alias killport='tcpkill -9 port $1'
+alias killme='~/.killMe.sh'
+# alias killport='tcpkill -9 port $1'
+alias killport='lsof -i :$1 | kill -9 $1'
 #
 alias sudo="sudo -E"
 alias tree='tree -C'
@@ -55,29 +60,42 @@ alias webcam="mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/vid
 alias cal='bc -l'
 
 #This one will list our disk usage in human-readable units including filesystem #type, and print a total at the bottom:
-alias df="df -Tha --total"
+#alias df="df -Tha --total"
 
 #goto work
 alias ws_intl='cd $HOME/work/intl'
 alias ws_india='cd $HOME/work/india'
+alias jarvis='cd $HOME/LabJARVIS'
 alias eclipse='cd $HOME/eclipse/ ; ./eclipse &'
+alias elk='. ~/elk.sh'
+alias stop='. ~/stop_tomcat.sh'
+alias mem='python ~/.memoryReport.py'
 
 alias init_intl='ws_intl; ant init.env -Denv=viveksinha'
 alias init_india='ws_india; ant init.env -Denv=viveksinha'
 
-
-#ant - build sandbox
+#build sandbox
 alias jsp_sync='ant dev.publish.static' 
 alias sync_intl='ws_intl; jsp_sync' 
 alias sync_india='ws_india; jsp_sync' 
-
+alias ws_bot='cd $HOME/Work/bots/chat'
+alias init_bot="ws_bot; gradle init -Penv=wiki"
+alias build_bot='ws_botl; gradle build'
+alias gcb='gradle clean build'
 #databases
-alias pgsql='psql -U postgres b2c'
-alias msql='mysql.server start; mysql -uroot -p'
+alias start_pgsql='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+alias pgsql='psql -U postgres b2c_new'
+alias msql='mysql.server start; mysql -uroot -p flightorderb2c' 
 
 #live databases
-alias ovpn='openvpn --config .client.ovpn &'
+#alias ovpn='openvpn --config .client.ovpn &'
+alias vpn='sudo openvpn /Users/vivek/Downloads/.client.ovpn'
+#start Server
+alias start_server='sudo /Library/Tomcat/bin/catalina.sh jpda start'
+alias stop_server='sudo /Library/Tomcat/bin/catalina.sh jpda stop'
 
+alias solr_stop='cd ~/Work/solr-5.5.0/bin/ & ./solr stop'
+alias solr_start='cd ~/Work/solr-5.5.0/bin/ & ./solr start'
 # mac
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'

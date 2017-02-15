@@ -71,3 +71,42 @@ fi
 if [ -f ~/.bash_prompt ]; then
 	. ~/.bash_prompt
 fi
+
+##
+# Your previous /Users/vivek/.bash_profile file was backed up as /Users/vivek/.bash_profile.macports-saved_2015-09-26_at_14:18:34
+##
+
+#export JAVA_OPTS="-Xms756M -Xmx4056M -Xss128M -Xmn712M"
+
+# MacPorts Installer addition on 2015-09-26_at_14:18:34: adding an appropriate PATH variable for use with MacPorts.
+export PATH="/opt/local/bin:/opt/local/sbin:$HOME/bin:$PATH"
+# Finished adapting your PATH environment variable for use with MacPorts.
+export MONGO_PATH=/usr/local/mongodb
+export PATH=$PATH:$MONGO_PATH/bin
+
+
+##
+# Your previous /Users/vivek/.bash_profile file was backed up as /Users/vivek/.bash_profile.macports-saved_2016-08-13_at_10:27:43
+##
+
+# MacPorts Installer addition on 2016-08-13_at_10:27:43: adding an appropriate PATH variable for use with MacPorts.
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+# Finished adapting your PATH environment variable for use with MacPorts.
+
+export PATH="/usr/local/sbin:$PATH"
+export PATH=$PATH:~/.nexustools
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f /Users/vivek/LabJARVIS/google/google-cloud-sdk/path.bash.inc ]; then
+  source '/Users/vivek/LabJARVIS/google/google-cloud-sdk/path.bash.inc'
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f /Users/vivek/LabJARVIS/google/google-cloud-sdk/completion.bash.inc ]; then
+  source '/Users/vivek/LabJARVIS/google/google-cloud-sdk/completion.bash.inc'
+fi
+
+# Setting PATH for Python 3.5
+# The original version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
+export PATH

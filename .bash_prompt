@@ -118,3 +118,4 @@ clear
 echo -e "${blue}${bold}";figlet " Yo!  This  is  Jarvis";
 echo -e "${green}" "Hello, Mr. $USER";
 echo -e "${red}" "Today is: ${LIGHTGRAY}" `date`;
+echo -e "${green}" "Happy Coding! :D";
