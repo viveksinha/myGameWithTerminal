@@ -26,11 +26,11 @@ for option in autocd globstar; do
 done;
 
 # Add tab completion for many Bash commands
-if which brew > /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
-	source "$(brew --prefix)/share/bash-completion/bash_completion";
-elif [ -f /etc/bash_completion ]; then
-	source /etc/bash_completion;
-fi;
+# if which brew > /dev/null && [ -f "$(brew --prefix)/share/bash-completion/bash_completion" ]; then
+# 	source "$(brew --prefix)/share/bash-completion/bash_completion";
+# elif [ -f /etc/bash_completion ]; then
+# 	source /etc/bash_completion;
+# fi;
 
 # Enable tab completion for `g` by marking it as an alias for `git`
 if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
@@ -48,9 +48,15 @@ complete -W "NSGlobalDomain" defaults;
 complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall;
 
 # Reload aliases file
-if [ -f ~/.bash_alias ]; then
-    . ~/.bash_alias
+if [ -f ~/.bash_alias_0 ]; then
+    . ~/.bash_alias_0
 fi 
+
+#Reload some more aliases
+if [ -f ~/.bash_alias_1 ]; then
+	. ~/.bash_alias_1
+fi
+
 # Reload functions file
 if [ -f ~/.bash_functions ]; then
     . ~/.bash_functions
@@ -58,14 +64,6 @@ fi
 # Reload git alias file
 if [ -f ~/.bash_git ]; then
     . ~/.bash_git
-fi
-#Reload git credentials
-if [ -f ~/.git_credentials ]; then
-	. ~/.git_credentials
-fi
-#Reload bash credentials
-if [ -f ~/.bash_credentials ]; then
-	. ~/.bash_credentials
 fi
 #Reload bash prompt
 if [ -f ~/.bash_prompt ]; then
@@ -81,9 +79,6 @@ fi
 # MacPorts Installer addition on 2015-09-26_at_14:18:34: adding an appropriate PATH variable for use with MacPorts.
 export PATH="/opt/local/bin:/opt/local/sbin:$HOME/bin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
-export MONGO_PATH=/usr/local/mongodb
-export PATH=$PATH:$MONGO_PATH/bin
-
 
 ##
 # Your previous /Users/vivek/.bash_profile file was backed up as /Users/vivek/.bash_profile.macports-saved_2016-08-13_at_10:27:43
@@ -94,19 +89,11 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
 export PATH="/usr/local/sbin:$PATH"
-export PATH=$PATH:~/.nexustools
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f /Users/vivek/LabJARVIS/google/google-cloud-sdk/path.bash.inc ]; then
-  source '/Users/vivek/LabJARVIS/google/google-cloud-sdk/path.bash.inc'
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f /Users/vivek/LabJARVIS/google/google-cloud-sdk/completion.bash.inc ]; then
-  source '/Users/vivek/LabJARVIS/google/google-cloud-sdk/completion.bash.inc'
-fi
+# export PATH=$PATH:~/.nexustools
 
 # Setting PATH for Python 3.5
 # The original version is saved in .bash_profile.pysave
 PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
 export PATH
+
+# export INPUTRC=~/.inputrc

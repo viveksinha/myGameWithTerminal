@@ -1,0 +1,113 @@
+#!/bin/bash
+
+# Setup.
+VERSION="0.0.1"
+
+version() {
+	printf "git-update version %s\n" "$VERSION"
+
+	git --version
+}
+
+# Helpers.
+current_branch() {
+	basename "$(git symbolic-ref HEAD)"
+}
+
+current_epoch() {
+	date +%s
+}
+
+user_email() {
+	git config user.email
+}
+
+#main functions
+update() {
+	RED='\033[0;31m'
+	NC='\033[0m'
+	GREEN='\033[32m'
+
+	if [ ! -z "$1" ]; then
+		echo " try git-update again without any argument ";
+		echo -e  "${GREEN}wiki ${NC}is trying to include some more feature, be patient! ${RED} Happy Scripting!! ${NC} "
+	else 	
+		declare -a arr=("core" "via_pojo")
+		for dir in "${arr[@]}"
+		do
+			## TODO check if directory is not present
+			#if [ -d "$dir" ]; then
+				cd ../"$dir"/ &&
+				echo -e "current epoch time : " $(current_epoch) " - Updating and Building branch ${GREEN}" $(current_branch) "${NC} of " "${GREEN} $dir ${NC}"&&
+				git pull origin $(current_branch)
+				ant clean build
+			#else
+			#	echo "$dir" not present
+			#fi
+		done
+
+		cd ../india_lib/ &&
+		echo -e "current epoch time : " $(current_epoch)"  updating repository ${GREEN} india_lib ${NC} with ${GREEN}"  $(current_branch) "${NC}" &&
+		git pull origin $(current_branch) && 
+		
+		cd ../indiastatic/ &&
+		echo -e " current epoch time : " $(current_epoch)" updating repository ${GREEN} indiastatic ${NC} with ${GREEN}" $(current_branch) "${NC}"&&
+		git pull origin $(current_branch) &&
+
+		
+		cp ../via_pojo/out/jars/via-pojo.jar ../india_lib &&
+		echo -e "current epoch time : " $(current_epoch)" ${GREEN} via-pojo jar copied to india_lib ${NC}" &&
+		cp ../core/out/jars/via-core.jar ../india_lib &&
+		echo -e "current epoch time : " $(current_epoch)" ${GREEN} via-core jar copied to india_lib ${NC} " &&
+
+		cd ../india/ &&
+		
+		if [ -z "$1" ]; then
+			git pull origin $(current_branch) &&
+			echo "Do you wish to full build? Please Enter Corrosponding Number"
+			select yn in "Yes" "No"; do
+			    case $yn in
+			        Yes ) ant clean build; break;;
+			        No ) ant; break;;
+			    esac
+			done
+		else
+			echo -e "current epoch time : " $(current_epoch)" please do not enter anything as argument :D ${RED} Happy Scripting!! ${NC}"
+		fi
+	echo -e "${RED} Happy Scripting!! ${NC}"; exit;
+	fi
+}
+
+
+display_help() {
+	cat <<-EOF
+
+  usage:
+    git update [options] [COMMAND] [args]
+
+  commands:
+    git update                        pull every sandboxes with current branch, build it and copy jar files
+    git update <message>              In process :P
+    git config --global alias.update update => "git update"
+
+  options:
+    -V, --version                   Output current version of git-out
+    -h, --help                      Display this help information
+
+  steps:
+	- copy this file to $HOME/bin
+	- add ":$HOME/bin" to $PATH in .bash_profile
+	- run "git config --global alias.update update"
+EOF
+	exit 0
+}
+
+
+
+case $1 in
+	-V|--version) version; exit 0 ;;
+	-h|--help) display_help; exit 0 ;;
+esac
+
+update "$@"
+
