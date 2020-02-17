@@ -1,7 +1,7 @@
 function c { git checkout $@; }
 function b { git branch $@; }
 alias s="git status"
-alias diff="git diff"
+alias gdiff="git diff"
 alias dc="git diff --cached"
 alias dv="git diff | vim -"
 alias l="git log"
@@ -9,9 +9,89 @@ alias gp="git pull"
 alias gpu="git push origin $(git symbolic-ref --quiet --short HEAD 2> /dev/null)"
 alias stash='git stash'
 alias gcm='git checkout master $1'
-alias gm='git commit -m $1'
+alias gcz='git cz -m $1'
 alias gc='git checkout $1 $2'
 alias undo_commit='git reset --soft HEAD~1'
 alias sl='git stash list'
 alias pop='git stash pop $1'
 alias bdiff='git diff master...$(git symbolic-ref --quiet --short HEAD 2> /dev/null)'
+
+function pr {
+	currentBranch=$(git branch | grep '^*' | sed 's/* //');
+	repoPath=$(currentRepoPath);
+	createPR $currentBranch $repoPath $1;
+}
+
+function pushpr {
+	currentBranch=$(git branch | grep '^*' | sed 's/* //');
+	repoPath=$(currentRepoPath);
+	git push origin $currentBranch;
+	createPR $currentBranch $repoPath $1;
+}
+
+function createPR {
+	if [ -z $3 ]
+	then
+		echo "Raising PR on development branch";
+		open https://github.com/$2/compare/development...$1\?expand\=1;
+	else
+		echo "Raising PR on $1 branch";
+		open https://github.com/$2/compare/$3...$1\?expand\=1;
+	fi
+}
+
+#deletes all branches except current, master, dev and development
+#use -d to do dry run, to check which branched will be deleted
+function gitpurge {
+    if [ -z $1 ] || [ $1 != "-d" ]
+    then
+        git branch --merged | grep -v "\*" | grep -v "master" | grep -v "dev"    | grep -v "development" | grep -v "stage" | grep -v "staging" | xargs -n 1 git branch -d;
+    else
+        git branch --merged | grep -v "\*" | grep -v "master" | grep -v "dev"    | grep -v "development" | grep -v "stage" | grep -v "staging";
+    fi
+}
+
+function add {
+    if [ -z $1 ]
+    then
+        git add .;
+    else
+        git add $1;
+    fi
+}
+
+function pr {
+    currentBranch=$(git branch | grep '^*' | sed 's/* //');
+    repoPath=$(currentRepoPath);
+    createPR $currentBranch $repoPath $1;
+}
+
+function pushpr {
+    currentBranch=$(git branch | grep '^*' | sed 's/* //');
+    repoPath=$(currentRepoPath);
+    git push origin $currentBranch;
+    createPR $currentBranch $repoPath $1;
+}
+
+function createPR {
+    if [ -z $3 ]
+    then
+        echo "Raising PR on development branch";
+        open https://github.com/$2/compare/dev...$1\?expand\=1;
+    else
+        echo "Raising PR on $3 branch";
+        open https://github.com/$2/compare/$3...$1\?expand\=1;
+    fi
+}
+
+function currentRepoPath {
+    local remotePath=$(git config --get remote.origin.url);
+    local startIndex=0;
+    if [[ $remotePath == git* ]]
+    then
+        startIndex=16;
+    else
+        startIndex=20;
+    fi 
+    echo $remotePath | cut -c$startIndex- | rev | cut -c5- | rev;
+}

@@ -1,21 +1,21 @@
 #   lr:  Full Recursive Directory Listing
 #   ------------------------------------------
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'' | less'
+alias lsdirs="ls -l | grep '^d'"
 
 # weather from my current location
 alias weather="curl -s 'http://rss.accuweather.com/rss/liveweather_rss.asp?metric=1&locCode=en|in|bangalore|204108' | sed -n '/Currently:/ s/.*: \(.*\): \([0-9]*\)\([CF]\).*/\2°\3, \1/p"
 
 #utility
 
-#the "app" to install an app on linux
 alias install='brew install $1'
 alias save='echo $1 > $2.txt'
-alias fuckcoding='shutdown -P now'
+alias fuckcoding='sudo shutdown -r now'
 alias fuck=' $(history -p \!\!)'
-alias ll='ls -lhA'
-alias rm='rm -i'
-alias mv='mv -i'
-alias cp='cp -i'
+alias ll='ls -SlhA'
+alias rm='rm -irv'
+alias mv='mv -iv'
+alias cp='cp -iv'
 alias cs='cd $1;ls'
 alias h='history'
 alias tail='tail -f'
@@ -23,28 +23,34 @@ alias remove='brew remove'
 alias update='brew update'
 alias upgrade='brew update && brew upgrade'
 alias reload_bash='. ~/.bash*'
-alias open='gedit $1 &'
-alias port='lsof -i :$1'
-alias check='ping google.com'
-alias dwnld_mp3='cd $HOME/Music/Audio; youtube-dl --extract-audio --audio-format mp3 $1'
-alias dwnld_audio='cd $HOME/Music/Audio; youtube-dl -citkf 140 $1'
-alias dwnld_video='cd $HOME/Movies/youtube; youtube-dl -citk --prefer-ffmpeg $1'
+#alias open='gedit $1 &'
+#alias p='lsof -i tcp:$1 | xargs | awk '{print $10}''
+alias ping='ping google.com'
+alias dwnld_mp3='mcd $HOME/Music/Audio; youtube-dl --extract-audio --audio-format mp3 $1'
+alias dwnld_audio='mcd $HOME/Music/Audio; youtube-dl -citkf 140 $1'
+alias dwnld_video='mcd $HOME/Movies/dowloaded_videos; youtube-dl -cit --prefer-ffmpeg $1'
 alias mkdir="mkdir -pv"
 alias wget='wget -c'
+
 alias jobs="ps aux"
 alias job="ps aux | grep $1"
-alias bashrc='echo 'krishna05' | gedit ~/.bashrc'
+
 # alias port='netstat -tulpn | grep :$1'
-alias kill='kill -9 $1'
+alias kill='kill -9 $1 2> /dev/null'
 alias killme='~/.killMe.sh'
-# alias killport='tcpkill -9 port $1'
-alias killport='lsof -i :$1 | kill -9 $1'
-#
+
+# alias killport='sudo kill -9 $(sudo fuser -n tcp $1 2> /dev/null)'
+alias killport='~/.killport.sh'
+
 alias sudo="sudo -E"
 alias tree='tree -C'
-alias hibernate="systemctl hibernate"
-alias suspend="systemctl suspend"
-alias lsdirs="ls -l | grep '^d'"
+
+# [Lock the screen] - Going away from keyboard
+alias hibernateon="sudo pmset -a hibernatemode 25"
+alias hibernateoff="sudo pmset -a hibernatemode 0"
+alias sleep="pmset sleepnow"
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
 
 # Slow vim startup fix with many plugins
 alias vim="vim -X"
@@ -52,31 +58,132 @@ alias vim="vim -X"
 # Show where you copy
 alias cp="cp -v"
 
-# webcam in mplayer, press G to take a shot.
-alias webcam="mplayer tv:// -tv driver=v4l2:width=640:height=480:device=/dev/video0 -fps 15 -vf screenshot"
+HISTFILESIZE=10000000
+#HISTSIZE=100000
+
+alias change_extension='ffmpeg -i $1 -codec copy $2'
+
+# Easier navigation: .., ..., ...., ....., ~ and -
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+# Shortcuts
+alias dl="cd ~/Downloads"
+alias dt="cd ~/Desktop"
+alias g="git"
+alias h="history"
+alias j="jobs"
+alias st="speedtest-cli"
 
 #calculator
 alias cal='bc -l'
 
 #This one will list our disk usage in human-readable units including filesystem #type, and print a total at the bottom:
-#alias df="df -Tha --total"
+alias df="df -Hai"
 
-alias stop='. ~/stop_tomcat.sh'
-alias mem='python ~/.memoryReport.py'
+# [ALIAS] Top
+alias cpu='top -o cpu'
+alias mem='top -o rsize'
 
-#build sandbox
-alias gcb='gradle clean build'
+# List all files colorized in long format
+alias l="ls -lF ${colorflag}"
 
-#databases
-alias start_pgsql='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
-alias msql='mycli -u root -ppassword'
+# List all files colorized in long format, including dot files
+alias la="ls -laF ${colorflag}"
+
+# List only directories
+alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
+
+# Always use color output for `ls`
+alias ls="command ls ${colorflag}"
+export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:'
+
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
+# Get week number
+alias week='date +%V'
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+
+# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade --all; brew cleanup; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update'
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# Flush Directory Service cache
+alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
+
+# Clean up LaunchServices to remove duplicates in the “Open With” menu
+alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+
+# View HTTP traffic
+alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
+alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
+
+# Canonical hex dump; some systems have this symlinked
+command -v hd > /dev/null || alias hd="hexdump -C"
+
+# OS X has no `md5sum`, so use `md5` as a fallback
+command -v md5sum > /dev/null || alias md5sum="md5"
+
+# OS X has no `sha1sum`, so use `shasum` as a fallback
+command -v sha1sum > /dev/null || alias sha1sum="shasum"
+
+# Recursively delete `.DS_Store` files
+alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+
+# Empty the Trash on all mounted volumes and the main HDD
+# Also, clear Apple’s System Logs to improve shell startup speed
+alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
 
 # mac
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 
+# Show/hide hidden files in Finder
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
-#most used commands
-#history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/#count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  #head -n10
+# Hide/show all desktop icons (useful when presenting)
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
-#guake -n guake -e 'mongo_restart' guake -r 'mongo' #to execute command mongo_restart in guake with tab named mongo
+# Merge PDF files
+# Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
+alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
+
+# Disable Spotlight
+alias spotoff="sudo mdutil -a -i off"
+# Enable Spotlight
+alias spoton="sudo mdutil -a -i on"
+
+# Ring the terminal bell, and put a badge on Terminal.app’s Dock icon
+# (useful when executing time-consuming commands)
+alias badge="tput bel"
+
+# One of @janmoesen’s ProTip™s
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+	alias "$method"="lwp-request -m '$method'"
+done
+
+# Make Grunt print stack traces by default
+command -v grunt > /dev/null && alias grunt="grunt --stack"
+
+# Stuff I never really use but cannot delete either because of http://xkcd.com/530/
+alias stfu="osascript -e 'set volume output muted true'"
+alias pumpitup="osascript -e 'set volume 7'"
+
+# Kill all the tabs in Chrome to free up memory
+# [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
+alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec $SHELL -l"
+alias remind="dontforget"

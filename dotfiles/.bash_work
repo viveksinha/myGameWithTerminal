@@ -1,0 +1,19 @@
+#!Work related aliases
+
+alias services='cd ~/work/hevo/services/'
+alias be='cd ~/work/hevo/services/'
+alias ui='cd ~/work/hevo/hevo-ui'
+alias lo='cd /var/log'
+alias aservices='cd ~/work/hevo/ansible-service'
+alias ans='cd ~/work/hevo/ansible-service'
+alias jarvis='cd ~/work/jarvis/'
+alias redis='cd /tmp; redis-server'
+alias grip='sudo ~/ils_data_grip; open -a DataGrip'
+alias client='osascript /Users/wiki/open-hevo-client.scpt $1'
+
+alias run_fe='killme hevo-ui && cd /Users/wiki/work/hevo/hevo-ui; npm run start > /var/log/hevo/dashboard.log 2>&1 &'
+alias mysql='cd /usr/local/Cellar/mysql\@5.7/5.7.24/support-files; ./mysql.server $1'
+alias emr='ssh -i /Users/wiki/WorkDocuments/emr_key_pair_asia.pem -p 22 hadoop@$1'
+
+#databases
+alias msql='mycli -u root -ppassword'

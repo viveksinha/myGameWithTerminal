@@ -4,19 +4,19 @@ export PATH="$HOME/bin:$PATH";
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
-	[ -r "$file" ] && [ -f "$file" ] && source "$file";
-done;
+# for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+# 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+# done;
 unset file;
 
 # Case-insensitive globbing (used in pathname expansion)
-shopt -s nocaseglob;
+# shopt -s nocaseglob;
 
 # Append to the Bash history file, rather than overwriting it
-shopt -s histappend;
+# shopt -s histappend;
 
 # Autocorrect typos in path names when using `cd`
-shopt -s cdspell;
+# shopt -s cdspell;
 
 # Enable some Bash 4 features when possible:
 # * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
@@ -33,28 +33,23 @@ done;
 # fi;
 
 # Enable tab completion for `g` by marking it as an alias for `git`
-if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
-	complete -o default -o nospace -F _git g;
-fi;
+# if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+# 	complete -o default -o nospace -F _git g;
+# fi;
 
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
+# [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
 
 # Add tab completion for `defaults read|write NSGlobalDomain`
 # You could just use `-g` instead, but I like being explicit
-complete -W "NSGlobalDomain" defaults;
+# complete -W "NSGlobalDomain" defaults;
 
 # Add `killall` tab completion for common apps
-complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall;
+# complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall;
 
 # Reload aliases file
 if [ -f ~/.bash_alias_0 ]; then
     . ~/.bash_alias_0
-fi 
-
-#Reload some more aliases
-if [ -f ~/.bash_alias_1 ]; then
-	. ~/.bash_alias_1
 fi
 
 # Reload functions file
@@ -69,7 +64,14 @@ fi
 if [ -f ~/.bash_prompt ]; then
 	. ~/.bash_prompt
 fi
-
+#Reload work related aliases
+if [ -f ~/.bash_work ]; then
+	. ~/.bash_work
+fi
+#Reload work related aliases
+if [ -f ~/.bash_functions_work ]; then
+	. ~/.bash_functions_work
+fi
 ##
 # Your previous /Users/vivek/.bash_profile file was backed up as /Users/vivek/.bash_profile.macports-saved_2015-09-26_at_14:18:34
 ##
@@ -80,20 +82,17 @@ fi
 export PATH="/opt/local/bin:/opt/local/sbin:$HOME/bin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
-##
-# Your previous /Users/vivek/.bash_profile file was backed up as /Users/vivek/.bash_profile.macports-saved_2016-08-13_at_10:27:43
-##
-
-# MacPorts Installer addition on 2016-08-13_at_10:27:43: adding an appropriate PATH variable for use with MacPorts.
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
 export PATH="/usr/local/sbin:$PATH"
-# export PATH=$PATH:~/.nexustools
-
-# Setting PATH for Python 3.5
-# The original version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
-export PATH
-
-# export INPUTRC=~/.inputrc
+export PATH=$PATH:/Users/wiki/work/jarvis/myGame/myGameWithTerminal/scripts
+export OPENSSL_DIR=/usr/local/Cellar/openssl/1.0.2n
+# export PATH="/usr/local/opt/postgresql@9.6/bin:$PATH"
+# export PATH=$PATH:/opt/apache-maven/bin
+# export PATH=$PATH:/usr/local/Cellar/git/2.19.1/bin
+export PATH="/usr/local/opt/node@10/bin:$PATH"
+export BASH_SILENCE_DEPRECATION_WARNING=1
+# export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+# export PATH="/usr/local/Cellar/mysql@5.7/5.7.29/bin:$PATH"
+# alias mysql='/usr/local/Cellar/mysql@5.7/5.7.29/bin/mysql'

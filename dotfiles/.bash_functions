@@ -1,14 +1,3 @@
-# Where/What is this binary? Shows extended ls output
-function what() {
-    which $1 | xargs ls -la
-}
-
-function togglecpu () {
-    [ "$(cpufreq-info | grep \"ondemand\")" ] && \
-    sudo cpufreq-set -g performance || \
-    sudo cpufreq-set -g ondemand ;
-}
-
 function unrax() {
 if (unrar vb "$1" | grep ".*/">/dev/null); then
    echo $1
@@ -29,10 +18,10 @@ for i in $( ls *.rar ); do unrax "$i"; echo "$i"; done
 # remind me, its important!
 # usage: remindme <time> <text>
 # e.g.: remindme 10m "omg, the pizza"
-function remindme()
-{
-    sleep $1 && zenity --info --text "$2" &
-}
+# function remindme()
+# {
+#     sleep $1 && zenity --info --text "$2" &
+# }
 
 note ()
 {
@@ -90,19 +79,6 @@ function extract {
 fi
 }
 
-#launch mongo DB
-function launch_mongo {
-	apache_restart
-	#!/bin/bash
-	URL="http://127.0.1.1/index.php?action=admin.index&host=0"
-	[[ -x $BROWSER ]] && exec "$BROWSER" "$URL" &
-	path=$(which xdg-open || which gnome-open) && exec "$path" "$URL" &
-	echo "Can't find browser"
-	PID=$!
-	sleep 2	
-	kill -INT $PID
-}
-
 # cd
 up(){
   local d=""
@@ -134,10 +110,4 @@ pack() {
     *.zip)      shift && zip $FILE $*     ;;
     *.rar)      shift && rar $FILE $*     ;;
   esac
-}
-
-# choose a random wallpaper
-function randomwp() {
-    local PIC=$(ls $HOME/Pictures/wallpaper/Unique | sort -R | head -1)
-    feh --bg-scale  $HOME/Pictures/wallpaper/Unique/$PIC
 }
