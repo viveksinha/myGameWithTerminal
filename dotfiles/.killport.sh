@@ -1,0 +1,1 @@
+lsof -i:$1 | awk '{print $2}' | xargs | awk '{print $2}' | xargs kill -9 &>null

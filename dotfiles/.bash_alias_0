@@ -22,7 +22,7 @@ alias tail='tail -f'
 alias remove='brew remove'
 alias update='brew update'
 alias upgrade='brew update && brew upgrade'
-alias reload_bash='. ~/.bash*'
+alias reload_bash='. ~/.bash_profile'
 #alias open='gedit $1 &'
 #alias p='lsof -i tcp:$1 | xargs | awk '{print $10}''
 alias ping='ping google.com'
@@ -37,7 +37,7 @@ alias job="ps aux | grep $1"
 
 # alias port='netstat -tulpn | grep :$1'
 alias kill='kill -9 $1 2> /dev/null'
-alias killme='~/.killMe.sh'
+alias killme='~/.bash_killme.sh'
 
 # alias killport='sudo kill -9 $(sudo fuser -n tcp $1 2> /dev/null)'
 alias killport='~/.killport.sh'
